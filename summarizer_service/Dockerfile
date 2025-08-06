@@ -1,22 +1,25 @@
-# Use an official Python runtime as a parent image
+# summarizer_service/Dockerfile
+
 FROM python:3.11-slim
 
-# Set the working directory in the container
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 WORKDIR /app
 
-# Copy the requirements file into the container
+# بهینه‌سازی کش لایه‌ای: ابتدا فقط فایل نیازمندی‌ها را کپی می‌کنیم.
 COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
-# --no-cache-dir ensures we don't store the download cache, keeping the image smaller
-#RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -r requirements.txt
+# --- راه حل اصلی اینجاست ---
+# افزایش زمان انتظار (timeout) برای pip به 600 ثانیه (10 دقیقه)
+# این کار به شبکه شما زمان بسیار بیشتری برای دانلود فایل‌های حجیم می‌دهد.
+RUN pip install --no-cache-dir --timeout 600 -r requirements.txt
 
-# Copy the rest of the application's code into the container
+# کپی کردن بقیه کدهای سرویس
 COPY . .
 
-# Expose the port the app runs on
+# مشخص کردن پورت سرویس
 EXPOSE 8001
 
-# Define the command to run the application
+# اجرای سرویس با Uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]

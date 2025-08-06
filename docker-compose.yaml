@@ -1,28 +1,37 @@
+# docker-compose.yml
+
 services:
   django_app:
-    build: . # از Dockerfile در همین پوشه استفاده کن
+    build: .
     volumes:
       - .:/app
-    ports:
-      - "8000:8000" # این پورت دیگر مستقیما استفاده نمی‌شود ولی برای دیباگ خوب است
+      # اتصال ولوم کش pip به مسیر کش در کانتینر
+      - pip-cache:/root/.cache/pip
     depends_on:
       - summarizer_app
 
   summarizer_app:
-    build: ./summarizer_service # از Dockerfile در پوشه summarizer_service استفاده کن
+    build: ./summarizer_service
     volumes:
       - ./summarizer_service:/app
-    ports:
-      - "8001:8001"
-
+      # اتصال ولوم کش pip و huggingface به این سرویس
+      - pip-cache:/root/.cache/pip
+      - huggingface-cache:/root/.cache/huggingface
+    
   nginx:
     image: nginx:1.25-alpine
     ports:
-      - "80:80" # تنها پورتی که از بیرون قابل دسترس است
+      - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      # برای سرویس‌دهی فایل‌های استاتیک و مدیا
-      - .:/app
+      # دسترسی nginx به فایل‌های استاتیک برای سرویس‌دهی مستقیم
+      - .:/app 
     depends_on:
       - django_app
       - summarizer_app
+
+# تعریف ولوم‌های نام‌گذاری شده در اینجا
+# این ولوم‌ها توسط داکر مدیریت شده و حتی پس از خاموش شدن کانتینرها باقی می‌مانند
+volumes:
+  pip-cache:
+  huggingface-cache:
