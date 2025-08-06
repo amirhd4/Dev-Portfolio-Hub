@@ -10,21 +10,18 @@ WORKDIR /app
 # کپی کردن فایل نیازمندی‌ها
 COPY requirements.txt .
 
-# --- راه حل نهایی و سه مرحله‌ای ---
+# --- استراتژی نهایی ---
 
-# مرحله ۱: pip را به آخرین نسخه ارتقا می‌دهیم
+# مرحله ۱: pip را به آخرین نسخه ارتقا می‌دهیم (موفقیت‌آمیز بود)
 RUN pip install --no-cache-dir --upgrade pip
 
-# مرحله ۲: نسخه بسیار سبک‌تر torch (فقط برای CPU) را از سرور مخصوص خودش نصب می‌کنیم.
-# این کار حجم دانلود را از چند گیگابایت به حدود ۲۰۰ مگابایت کاهش می‌دهد.
+# مرحله ۲: نسخه سبک torch (فقط CPU) را جداگانه نصب می‌کنیم (موفقیت‌آمیز بود)
 RUN pip install --no-cache-dir --timeout 600 \
     torch --index-url https://download.pytorch.org/whl/cpu
 
-# مرحله ۳: بقیه پکیج‌ها را از یک سرور آینه‌ای معتبر در آلمان نصب می‌کنیم.
-# این کار سرعت و پایداری دانلود را به شدت افزایش می‌دهد.
-RUN pip install --no-cache-dir --timeout 600 \
-    --index-url https://ftp.fau.de/pypi/simple/ \
-    -r requirements.txt
+# مرحله ۳: بقیه پکیج‌ها را از سرور اصلی PyPI نصب می‌کنیم.
+# دیگر نیازی به میرور نیست چون پکیج‌های باقی‌مانده سبک هستند.
+RUN pip install --no-cache-dir --timeout 600 -r requirements.txt
 
 # کپی کردن بقیه کدهای سرویس
 COPY . .
