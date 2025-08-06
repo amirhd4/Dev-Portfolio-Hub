@@ -29,7 +29,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG") == "True"
-
+print("Amir Start")
+print(DEBUG)
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
@@ -144,3 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Email Backend Configuration for Development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

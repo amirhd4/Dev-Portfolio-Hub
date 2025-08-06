@@ -1,29 +1,24 @@
-# Dockerfile (ریشه اصلی پروژه)
+# Dockerfile (ریشه اصلی پروژه) - نسخه نهایی و پروداکشن
 
-# مرحله ۱: استفاده از یک ایمیج پایه پایتون
 FROM python:3.11-slim
 
-# تنظیم متغیرهای محیطی برای جلوگیری از ایجاد فایل‌های .pyc و بافر نکردن خروجی
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# تنظیم پوشه کاری داخل کانتینر
 WORKDIR /app
 
-# بهینه‌سازی کش لایه‌ای:
-# ابتدا فقط فایل نیازمندی‌ها را کپی می‌کنیم.
 COPY requirements.txt .
-
-# سپس وابستگی‌ها را نصب می‌کنیم. این لایه فقط زمانی دوباره ساخته می‌شود
-# که فایل requirements.txt تغییر کرده باشد.
 RUN pip install --no-cache-dir -r requirements.txt
 
-# در نهایت، بقیه کدهای پروژه را کپی می‌کنیم. با این کار، تغییرات در کدهای پایتون
-# باعث نصب مجدد پکیج‌ها نخواهد شد.
+# تمام کدهای پروژه را کپی کن
 COPY . .
 
-# پورت اپلیکیشن را مشخص می‌کنیم
-EXPOSE 8000
+# --- تغییرات کلیدی اینجاست ---
+# ۱. اجرای collectstatic برای جمع‌آوری تمام فایل‌های استاتیک در پوشه /app/staticfiles/
+# Nginx از این پوشه برای سرویس‌دهی فایل‌ها استفاده خواهد کرد.
+RUN python manage.py collectstatic --noinput
 
-# اجرای سرور توسعه جنگو
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# ۲. تغییر دستور اجرا از runserver به Gunicorn
+# Gunicorn یک سرور WSGI حرفه‌ای است که پشت Nginx قرار می‌گیرد.
+# نکته: نام "portfolio_project" را با نام پوشه تنظیمات پروژه خود جایگزین کنید اگر متفاوت است.
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "portfolio_project.wsgi"]

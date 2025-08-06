@@ -22,7 +22,7 @@ from Dev_Portfolio_Hub import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.core.urls')),
+    path('', include('apps.core.urls', namespace="core")),
     path('', include('apps.portfolio.urls', namespace='portfolio')),
     path('', include('apps.team.urls', namespace='team')),
     path('', include('apps.lab.urls', namespace='lab')),  # این خط را اضافه کنید
