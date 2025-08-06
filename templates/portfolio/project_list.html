@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}پروژه‌ها | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-2">نمونه‌کارها و پروژه‌ها</h1>
+    <p class="text-center text-gray-500 mb-12">نگاهی به بخشی از کارهایی که با عشق و تخصص انجام داده‌ایم.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {% for project in projects %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+            <a href="{% url 'portfolio:project-detail' slug=project.slug %}">
+                {% if project.image %}
+                    <img class="w-full h-56 object-cover" src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% else %}
+                    <img class="w-full h-56 object-cover" src="https://placehold.co/600x400/e2e8f0/a0aec0?text=No+Image" alt="No image available">
+                {% endif %}
+
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">{{ project.title }}</h2>
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                        {{ project.description }}
+                    </p>
+                    <div class="flex justify-end">
+                         <span class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800">
+                            مشاهده جزئیات
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L10 8.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                         </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-10">
+            <p class="text-gray-500">در حال حاضر پروژه‌ای برای نمایش وجود ندارد.</p>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

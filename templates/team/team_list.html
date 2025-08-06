@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}تیم ما | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-10">
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-2">متخصصان ما</h1>
+    <p class="text-center text-gray-500 mb-12">با تیمی که پشت موفقیت پروژه‌های شماست، آشنا شوید.</p>
+
+    <div x-data="{
+        selectedSkill: 'all',
+        members: {{ team_members_json|safe }}
+    }">
+
+        <div class="flex flex-wrap justify-center gap-2 mb-12">
+            <button @click="selectedSkill = 'all'"
+                    :class="{ 'bg-blue-600 text-white': selectedSkill === 'all', 'bg-white text-gray-700': selectedSkill !== 'all' }"
+                    class="px-4 py-2 text-sm font-semibold rounded-full shadow-sm hover:bg-blue-500 hover:text-white transition-colors">
+                همه
+            </button>
+            {% for skill in skills %}
+                <button @click="selectedSkill = '{{ skill.name }}'"
+                        :class="{ 'bg-blue-600 text-white': selectedSkill === '{{ skill.name }}', 'bg-white text-gray-700': selectedSkill !== '{{ skill.name }}' }"
+                        class="px-4 py-2 text-sm font-semibold rounded-full shadow-sm hover:bg-blue-500 hover:text-white transition-colors">
+                    {{ skill.name }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="member in members" :key="member.id">
+                <div x-show="selectedSkill === 'all' || member.skills.includes(selectedSkill)"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 transform scale-90"
+                     x-transition:enter-end="opacity-100 transform scale-100"
+                     class="bg-white rounded-lg shadow-lg p-6 text-center">
+
+                    <img :src="member.photo_url || 'https://placehold.co/200x200/e2e8f0/a0aec0?text=No+Photo'"
+                         :alt="member.name"
+                         class="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-blue-200">
+
+                    <h2 class="text-xl font-bold text-gray-900" x-text="member.name"></h2>
+                    <p class="text-sm text-blue-600 font-semibold mb-3" x-text="member.title"></p>
+                    <p class="text-gray-600 text-sm mb-4" x-text="member.bio"></p>
+
+                    <div class="flex flex-wrap justify-center gap-2 mb-4">
+                        <template x-for="skill in member.skills" :key="skill">
+                            <span class="bg-gray-200 text-gray-800 text-xs font-medium px-2 py-1 rounded-full" x-text="skill"></span>
+                        </template>
+                    </div>
+
+                    <div class="flex justify-center space-x-4 space-x-reverse">
+                        <a x-show="member.linkedin_url" :href="member.linkedin_url" target="_blank" class="text-gray-400 hover:text-blue-700">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a x-show="member.github_url" :href="member.github_url" target="_blank" class="text-gray-400 hover:text-gray-900">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.003 10.003 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

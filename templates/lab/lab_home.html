@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}آزمایشگاه | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-10">
+    <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">به آزمایشگاه ما خوش آمدید</h1>
+        <p class="text-gray-500">اینجا جایی است که ایده‌ها و تکنولوژی‌ها را به صورت عملی آزمایش می‌کنیم.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div class="p-4 bg-gray-800 text-white font-mono text-sm">
+            پیش‌نمایش زنده Markdown
+        </div>
+
+        <div x-data="{ markdownText: '# سلام دنیا!\n\nاین یک **پیش‌نمایش زنده** از متن `Markdown` است.\n\n- آیتم اول\n- آیتم دوم' }" class="grid grid-cols-1 md:grid-cols-2 min-h-[60vh]">
+
+            <div class="p-4 border-r border-gray-200">
+                <textarea
+                    x-model="markdownText"
+                    class="w-full h-full p-2 border-none resize-none focus:ring-0 font-mono text-gray-700"
+                    placeholder="متن Markdown خود را اینجا وارد کنید..."
+                ></textarea>
+            </div>
+
+            <div class="p-6 overflow-y-auto">
+                <div
+                    x-html="marked.parse(markdownText)"
+                    class="prose prose-lg max-w-none prose-p:text-gray-700 prose-headings:text-gray-800 prose-a:text-blue-600 hover:prose-a:text-blue-800 prose-code:bg-gray-200 prose-code:p-1 prose-code:rounded">
+                </div>
+            </div>
+
+        </div>
+    </div>
+<div class="bg-white rounded-xl shadow-2xl overflow-hidden mt-12">
+    <div class="p-4 bg-gray-800 text-white font-mono text-sm">
+        دموی خلاصه‌ساز متن (FastAPI + AI)
+    </div>
+
+    <div x-data="{
+            inputText: '',
+            summary: '',
+            isLoading: false,
+            error: '',
+            summarize() {
+                this.isLoading = true;
+                this.summary = '';
+                this.error = '';
+                fetch('/api/summarize/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}' // برای امنیت جنگو
+                    },
+                    body: JSON.stringify({ text: this.inputText })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('پاسخ شبکه مناسب نبود. حداقل ۱۰۰ کاراکتر وارد کنید.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.summary = data.summary;
+                })
+                .catch(error => {
+                    this.error = error.message;
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+            }
+        }" class="p-6">
+
+        <textarea x-model="inputText"
+                  class="w-full h-40 p-3 border border-gray-300 rounded-md resize-y focus:ring-2 focus:ring-blue-500"
+                  placeholder="یک متن طولانی (حداقل ۱۰۰ کاراکتر) برای خلاصه شدن اینجا وارد کنید..."></textarea>
+
+        <button @click="summarize()" :disabled="isLoading"
+                class="mt-4 w-full bg-green-600 text-white px-4 py-3 rounded-lg text-md font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 flex items-center justify-center">
+            <span x-show="!isLoading">خلاصه کن!</span>
+            <svg x-show="isLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </button>
+
+        <div x-show="summary || error" class="mt-6 p-4 border rounded-md"
+             :class="{ 'border-green-300 bg-green-50': summary, 'border-red-300 bg-red-50 text-red-700': error }">
+            <h4 class="font-bold mb-2" x-text="error ? 'خطا' : 'خلاصه متن:'"></h4>
+            <p x-text="error ? error : summary"></p>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

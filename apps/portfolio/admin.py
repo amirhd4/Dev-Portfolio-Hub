@@ -8,8 +8,8 @@ class TestimonialInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'live_demo_url') # فیلدهایی که در لیست نمایش داده می‌شوند
-    list_filter = ('technologies', 'services') # فیلدهایی برای فیلتر کردن در سایدبار
+    list_display = ('title', 'live_demo_url', "slug") # فیلدهایی که در لیست نمایش داده می‌شوند
+    list_filter = ('technologies', 'services', "slug") # فیلدهایی برای فیلتر کردن در سایدبار
     search_fields = ('title', 'description') # فیلدهایی که قابل جستجو هستند
     inlines = [TestimonialInline] # اضافه کردن ویرایش گواهی‌نامه‌ها در همین صفحه
 

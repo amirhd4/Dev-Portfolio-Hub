@@ -1,4 +1,5 @@
 from django.db import models
+from slugify import slugify
 
 
 # مدل تکنولوژی‌ها
@@ -28,12 +29,14 @@ class Service(models.Model):
         return self.name
 
 
-# مدل پروژه‌ها
+
 class Project(models.Model):
     title = models.CharField("عنوان پروژه", max_length=200)
+    # این فیلد جدید را اضافه کنید
+    slug = models.SlugField("اسلاگ (آدرس URL)", max_length=220, unique=True, blank=True, allow_unicode=True)
     description = models.TextField("توضیحات کوتاه")
     image = models.ImageField("تصویر اصلی", upload_to='projects/')
-    case_study_content = models.TextField("محتوای مطالعه موردی")  # در آینده این فیلد را به RichTextField ارتقا می‌دهیم
+    case_study_content = models.TextField("محتوای مطالعه موردی (Markdown)")
     live_demo_url = models.URLField("لینک دموی زنده", blank=True, null=True)
     technologies = models.ManyToManyField(Technology, verbose_name="تکنولوژی‌های استفاده شده")
     services = models.ManyToManyField(Service, verbose_name="سرویس‌های ارائه شده")
@@ -41,9 +44,19 @@ class Project(models.Model):
     class Meta:
         verbose_name = "پروژه"
         verbose_name_plural = "پروژه‌ها"
+        ordering = ['-id'] # مرتب‌سازی پیش‌فرض پروژه‌ها
 
     def __str__(self):
         return self.title
+
+    # این متد را برای تولید خودکار اسلاگ اضافه کنید
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # از عنوان پروژه یک اسلاگ فارسی و تمیز بساز
+            self.slug = slugify(self.title, allow_unicode=True)
+        super().save(*args, **kwargs)
+
+
 
 
 # مدل گواهی‌نامه‌ها (نظرات مشتریان)

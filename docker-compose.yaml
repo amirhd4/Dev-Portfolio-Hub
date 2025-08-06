@@ -1,0 +1,28 @@
+services:
+  django_app:
+    build: . # از Dockerfile در همین پوشه استفاده کن
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000" # این پورت دیگر مستقیما استفاده نمی‌شود ولی برای دیباگ خوب است
+    depends_on:
+      - summarizer_app
+
+  summarizer_app:
+    build: ./summarizer_service # از Dockerfile در پوشه summarizer_service استفاده کن
+    volumes:
+      - ./summarizer_service:/app
+    ports:
+      - "8001:8001"
+
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80" # تنها پورتی که از بیرون قابل دسترس است
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      # برای سرویس‌دهی فایل‌های استاتیک و مدیا
+      - .:/app
+    depends_on:
+      - django_app
+      - summarizer_app

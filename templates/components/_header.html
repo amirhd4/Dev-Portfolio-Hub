@@ -5,9 +5,9 @@
                 <a href="#" class="font-bold text-xl text-gray-800">تیم فنی ما</a>
                 <div class="hidden md:block">
                     <div class="mr-10 flex items-baseline space-x-4 space-x-reverse">
-                        <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">پروژه‌ها</a>
-                        <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">تیم ما</a>
-                        <a href="#" class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">آزمایشگاه</a>
+                        <a href="{% url 'portfolio:project-list' %}" class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">پروژه‌ها</a>
+                        <a href="{% url 'team:team-list' %}" class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">تیم ما</a>
+                        <a href="{% url 'lab:lab-home' %}" class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">آزمایشگاه</a>
                     </div>
                 </div>
             </div>
