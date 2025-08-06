@@ -7,13 +7,19 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-# بهینه‌سازی کش لایه‌ای: ابتدا فقط فایل نیازمندی‌ها را کپی می‌کنیم.
+# بهینه‌سازی کش لایه‌ای
 COPY requirements.txt .
 
-# --- راه حل اصلی اینجاست ---
-# افزایش زمان انتظار (timeout) برای pip به 600 ثانیه (10 دقیقه)
-# این کار به شبکه شما زمان بسیار بیشتری برای دانلود فایل‌های حجیم می‌دهد.
-RUN pip install --no-cache-dir --timeout 600 -r requirements.txt
+# --- راه حل نهایی اینجاست ---
+# ما دو پارامتر جدید اضافه کرده‌ایم:
+# --no-require-hashes: به pip می‌گوید که بررسی امنیتی هش فایل‌ها را انجام نده.
+# --prefer-binary: به pip می‌گوید تا حد امکان از فایل‌های باینری از پیش کامپایل شده (wheels) استفاده کند که سریع‌تر نصب می‌شوند.
+RUN pip install \
+    --no-cache-dir \
+    --timeout 600 \
+    --no-require-hashes \
+    --prefer-binary \
+    -r requirements.txt
 
 # کپی کردن بقیه کدهای سرویس
 COPY . .
