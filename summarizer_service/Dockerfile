@@ -7,18 +7,23 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-# بهینه‌سازی کش لایه‌ای
+# کپی کردن فایل نیازمندی‌ها
 COPY requirements.txt .
 
-# --- راه حل نهایی اینجاست ---
-# ما دو پارامتر جدید اضافه کرده‌ایم:
-# --no-require-hashes: به pip می‌گوید که بررسی امنیتی هش فایل‌ها را انجام نده.
-# --prefer-binary: به pip می‌گوید تا حد امکان از فایل‌های باینری از پیش کامپایل شده (wheels) استفاده کند که سریع‌تر نصب می‌شوند.
-RUN pip install \
-    --no-cache-dir \
-    --timeout 600 \
-    --no-require-hashes \
-    --prefer-binary \
+# --- راه حل نهایی و سه مرحله‌ای ---
+
+# مرحله ۱: pip را به آخرین نسخه ارتقا می‌دهیم
+RUN pip install --no-cache-dir --upgrade pip
+
+# مرحله ۲: نسخه بسیار سبک‌تر torch (فقط برای CPU) را از سرور مخصوص خودش نصب می‌کنیم.
+# این کار حجم دانلود را از چند گیگابایت به حدود ۲۰۰ مگابایت کاهش می‌دهد.
+RUN pip install --no-cache-dir --timeout 600 \
+    torch --index-url https://download.pytorch.org/whl/cpu
+
+# مرحله ۳: بقیه پکیج‌ها را از یک سرور آینه‌ای معتبر در آلمان نصب می‌کنیم.
+# این کار سرعت و پایداری دانلود را به شدت افزایش می‌دهد.
+RUN pip install --no-cache-dir --timeout 600 \
+    --index-url https://ftp.fau.de/pypi/simple/ \
     -r requirements.txt
 
 # کپی کردن بقیه کدهای سرویس
