@@ -1,0 +1,24 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Python Virtual Environment
+.venv/
+.env
+docker_outputs/
+
+# Node.js
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE specific
+.idea/
+.vscode/

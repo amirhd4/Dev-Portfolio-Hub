@@ -1,12 +1,15 @@
-# docker-compose.yml
+# docker-compose.yml - نسخه نهایی با ولوم‌های اشتراکی
 
 services:
   django_app:
     build: .
     volumes:
+      # برای live-reload کد در محیط توسعه
       - .:/app
-      # اتصال ولوم کش pip به مسیر کش در کانتینر
-      - pip-cache:/root/.cache/pip
+      # اتصال ولوم استاتیک به این سرویس
+      - static_volume:/app/staticfiles
+      # اتصال ولوم مدیا به این سرویس
+      - media_volume:/app/media
     depends_on:
       - summarizer_app
 
@@ -14,24 +17,26 @@ services:
     build: ./summarizer_service
     volumes:
       - ./summarizer_service:/app
-      # اتصال ولوم کش pip و huggingface به این سرویس
       - pip-cache:/root/.cache/pip
       - huggingface-cache:/root/.cache/huggingface
-    
+
   nginx:
     image: nginx:1.25-alpine
     ports:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      # دسترسی nginx به فایل‌های استاتیک برای سرویس‌دهی مستقیم
-      - .:/app 
+      # اتصال ولوم استاتیک (فقط خواندنی) به Nginx
+      - static_volume:/app/staticfiles:ro
+      # اتصال ولوم مدیا (فقط خواندنی) به Nginx
+      - media_volume:/app/media:ro
     depends_on:
       - django_app
       - summarizer_app
 
-# تعریف ولوم‌های نام‌گذاری شده در اینجا
-# این ولوم‌ها توسط داکر مدیریت شده و حتی پس از خاموش شدن کانتینرها باقی می‌مانند
+# تعریف ولوم‌های نام‌گذاری شده برای اشتراک‌گذاری داده‌ها بین کانتینرها
 volumes:
   pip-cache:
   huggingface-cache:
+  static_volume:
+  media_volume:
