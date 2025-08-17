@@ -26,10 +26,6 @@ We are a passionate software development team offering:
 - Docker (for deployment)
 - Nginx & Gunicorn
 
-## 📸 Screenshots
-
-*(Add project screenshots here)*
-
 ## 🛠️ Setup Instructions
 
 ```bash
