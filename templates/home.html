@@ -6,314 +6,212 @@
 
 {% block content %}
 
-<!-- =================================================================================== -->
-<!-- =======================  CSS سفارشی برای طراحی نهایی  ========================= -->
-<!-- =================================================================================== -->
 <style>
-    /* ---------------------------------------------- */
-    /* 1. متغیرها و تنظیمات کلی (Root)        */
-    /* ---------------------------------------------- */
     :root {
-        --c-dark-navy: #0a192f;
-        --c-navy: #112240;
-        --c-light-navy: #233554;
-        --c-slate: #8892b0;
-        --c-light-slate: #a8b2d1;
-        --c-lightest-slate: #ccd6f6;
-        --c-white: #e6f1ff;
-        --c-accent: #64ffda; /* Teal Accent */
-        --c-accent-tint: rgba(100, 255, 218, 0.1);
+        --c-primary: #007BFF;      /* آبی کلاسیک */
+        --c-primary-dark: #0056b3;
+        --c-secondary: #17a2b8;    /* فیروزه‌ای */
+        --c-dark: #343a40;
+        --c-text: #495057;
+        --c-text-light: #6c757d;
+        --c-bg: #ffffff;
+        --c-light-bg: #f8f9fa;
+        --c-border: #dee2e6;
+        --c-success: #28a745;
+        --c-error: #dc3545;
 
-        --font-sans: 'Vazirmatn', sans-serif;
-        --font-mono: 'Fira Code', monospace;
-
-        --fz-xxl: 72px;
-        --fz-xl: 50px;
-        --fz-lg: 32px;
-        --fz-md: 20px;
-        --fz-sm: 16px;
-        --fz-xs: 14px;
-
-        --radius: 8px;
-        --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-        --section-padding: 150px 0;
+        --shadow-soft: 0 4px 15px rgba(0,0,0,0.06);
+        --shadow-medium: 0 8px 30px rgba(0,0,0,0.1);
+        --radius: 12px;
+        --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
-    /* ---------------------------------------------- */
-    /* 2. استایل‌های پایه و عمومی             */
-    /* ---------------------------------------------- */
+
     .page-wrapper {
-        font-family: var(--font-sans);
-        background-color: var(--c-dark-navy);
-        color: var(--c-slate);
+        font-family: 'Vazirmatn', sans-serif;
+        background-color: var(--c-bg);
+        color: var(--c-text);
+        line-height: 1.8;
     }
     .container {
-        max-width: 1100px;
+        max-width: 1140px;
         margin: 0 auto;
         padding: 0 20px;
     }
     .section {
-        padding: var(--section-padding);
-    }
-    .section-header {
-        position: relative;
-        margin-bottom: 80px;
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-    .section-header h2 {
-        font-family: var(--font-sans);
-        font-size: var(--fz-lg);
-        font-weight: 700;
-        color: var(--c-lightest-slate);
-        margin-right: 20px;
-        white-space: nowrap;
-    }
-    .section-header .section-counter {
-        margin-right: 10px;
-        color: var(--c-accent);
-        font-family: var(--font-mono);
-        font-size: var(--fz-md);
-    }
-    .section-header::after {
-        content: '';
-        display: block;
-        position: relative;
-        width: 100%;
-        height: 1px;
-        margin-left: 20px;
-        background-color: var(--c-light-navy);
-    }
-    .btn {
-        color: var(--c-accent);
-        background-color: transparent;
-        border: 1px solid var(--c-accent);
-        border-radius: 4px;
-        padding: 1.25rem 1.75rem;
-        font-size: var(--fz-xs);
-        font-family: var(--font-mono);
-        line-height: 1;
-        text-decoration: none;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-    .btn:hover {
-        background-color: var(--c-accent-tint);
-        outline: none;
-    }
-
-    /* ---------------------------------------------- */
-    /* 3. بخش Hero با ذرات متحرک             */
-    /* ---------------------------------------------- */
-    .hero {
-        min-height: 100vh;
-        padding: 0;
-        display: flex;
-        align-items: center;
+        padding: 120px 0;
         position: relative;
         overflow: hidden;
     }
-    #particles-js {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
+    .section-header {
+        text-align: center;
+        margin-bottom: 70px;
     }
-    .hero-content {
-        position: relative;
-        z-index: 2;
-    }
-    .hero-content h1 {
-        font-size: var(--fz-sm);
-        color: var(--c-accent);
-        font-family: var(--font-mono);
-        margin-bottom: 20px;
-    }
-    .hero-content h2 {
-        font-size: var(--fz-xxl);
-        color: var(--c-lightest-slate);
+    .section-header h2 {
+        font-size: 3rem;
         font-weight: 800;
-        line-height: 1.1;
+        color: var(--c-dark);
+        margin-bottom: 1rem;
     }
-    .hero-content h3 {
-        font-size: var(--fz-xxl);
-        color: var(--c-slate);
-        font-weight: 800;
-        line-height: 1.1;
-        margin-top: 10px;
-    }
-    .hero-content p {
-        margin: 20px 0 50px;
-        max-width: 540px;
-        font-size: var(--fz-md);
-        line-height: 1.6;
-    }
-
-    /* ---------------------------------------------- */
-    /* 4. بخش خدمات (Glassmorphism Cards)   */
-    /* ---------------------------------------------- */
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-    }
-    .service-card {
-        background: linear-gradient(145deg, rgba(35, 53, 84, 0.8), rgba(17, 34, 64, 0.8));
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--c-light-navy);
-        padding: 2rem;
-        border-radius: var(--radius);
-        transition: var(--transition);
-        box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
-    }
-    .service-card:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 20px 30px -15px rgba(2,12,27,0.7);
-    }
-    .service-card .icon {
-        color: var(--c-accent);
-        margin-bottom: 20px;
-    }
-    .service-card .icon svg {
-        width: 48px;
-        height: 48px;
-    }
-    .service-card h3 {
-        font-size: var(--fz-md);
-        color: var(--c-lightest-slate);
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    /* ---------------------------------------------- */
-    /* 5. تایم‌لاین فرایند کاری              */
-    /* ---------------------------------------------- */
-    .timeline {
-        position: relative;
-        max-width: 800px;
+    .section-header p {
+        font-size: 1.1rem;
+        color: var(--c-text-light);
+        max-width: 650px;
         margin: 0 auto;
     }
-    .timeline::after {
-        content: '';
-        position: absolute;
-        width: 4px;
-        background-color: var(--c-light-navy);
-        top: 0;
-        bottom: 0;
-        right: 50%;
-        margin-right: -2px;
+    .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        border: 2px solid transparent;
+        font-size: 1rem;
     }
-    .timeline-item {
-        padding: 10px 40px;
+    .btn-primary {
+        background-color: var(--c-primary);
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: var(--c-primary-dark);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-medium);
+    }
+
+
+    header {
         position: relative;
-        width: 50%;
+        z-index: 1000 !important; /* این خط هدر را همیشه در بالاترین لایه نگه می‌دارد */
     }
-    .timeline-item:nth-child(odd) {
-        right: 0;
-        padding-left: 0;
-        padding-right: 80px;
-        text-align: left;
+
+
+    .hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: white;
     }
-    .timeline-item:nth-child(even) {
-        left: 50%;
-        padding-right: 0;
-        padding-left: 80px;
-        text-align: right;
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
-    .timeline-dot {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background-color: var(--c-dark-navy);
-        border: 4px solid var(--c-accent);
-        top: 25px;
-        border-radius: 50%;
-        z-index: 1;
+    .hero h1 {
+        font-size: 4.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
     }
-    .timeline-item:nth-child(odd) .timeline-dot {
-        right: -10px;
+    .hero p {
+        font-size: 1.25rem;
+        max-width: 700px;
+        margin: 0 auto 2.5rem;
+        opacity: 0.9;
     }
-    .timeline-item:nth-child(even) .timeline-dot {
-        left: -10px;
+
+
+    .services-tabs-wrapper {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 50px;
+        align-items: flex-start;
     }
-    .timeline-content {
-        padding: 20px 30px;
-        background-color: var(--c-light-navy);
+    .service-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .service-tab-button {
+        width: 100%;
+        padding: 20px;
+        background: var(--c-white);
+        border: 1px solid var(--c-border);
         border-radius: var(--radius);
-        position: relative;
+        text-align: right;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
-    .timeline-content h3 {
-        color: var(--c-accent);
-        font-family: var(--font-mono);
-        margin-bottom: 10px;
+    .service-tab-button.active,
+    .service-tab-button:hover {
+        background-color: var(--c-primary);
+        color: white;
+        border-color: var(--c-primary);
+        transform: translateX(-10px);
     }
-    .timeline-content p {
-        color: var(--c-lightest-slate);
-        font-size: var(--fz-sm);
+    .service-tab-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        align-items: center;
+    }
+    .service-tab-content h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--c-dark);
+        margin-bottom: 1rem;
+    }
+    .service-tab-content img {
+        width: 100%;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-medium);
     }
 
     /* ---------------------------------------------- */
-    /* 6. گالری پروژه‌های فیلترپذیر        */
+    /* 6. بخش پروژه‌ها با افکت سه‌بعدی       */
     /* ---------------------------------------------- */
-    .project-filters {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 40px;
-        flex-wrap: wrap;
-    }
-    .project-filters button {
-        font-family: var(--font-mono);
-        background: none;
-        border: 1px solid var(--c-accent);
-        color: var(--c-accent);
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-    .project-filters button.active,
-    .project-filters button:hover {
-        background-color: var(--c-accent-tint);
-    }
     .projects-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-    .project-card-wrapper {
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    .project-card-wrapper.hidden {
-        transform: scale(0.8);
-        opacity: 0;
-        width: 0;
-        padding: 0;
-        margin: 0;
-        overflow: hidden;
+        gap: 30px;
+        perspective: 1000px;
     }
     .project-card {
-        position: relative;
-        overflow: hidden;
+        background: var(--c-white);
         border-radius: var(--radius);
-        background-color: var(--c-light-navy);
-        box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
-    }
-    .project-image img {
-        width: 100%;
-        display: block;
+        box-shadow: var(--shadow-soft);
         transition: var(--transition);
+        transform-style: preserve-3d;
     }
-    .project-card:hover .project-image img {
-        transform: scale(1.05);
-        filter: grayscale(80%) brightness(50%);
+    .project-card:hover {
+        box-shadow: var(--shadow-medium);
     }
-    .project-overlay {
+    .project-card-image {
+        overflow: hidden;
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+    }
+    .project-card-image img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+    .project-card-content {
+        padding: 25px;
+    }
+    .project-card-content h3 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--c-dark);
+    }
+
+
+    .testimonial-slider {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        height: 350px; /* ارتفاع ثابت برای جلوگیری از پرش */
+    }
+    .testimonial-slide {
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         display: flex;
@@ -321,364 +219,176 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 20px;
-        opacity: 0;
-        transition: var(--transition);
     }
-    .project-card:hover .project-overlay {
-        opacity: 1;
+    .testimonial-quote {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--c-dark);
+        margin-bottom: 2rem;
     }
-    .project-overlay h3 {
-        font-size: var(--fz-lg);
-        color: var(--c-lightest-slate);
-        margin-bottom: 10px;
-    }
-    .project-overlay a {
-        color: var(--c-accent);
-        font-family: var(--font-mono);
-        text-decoration: none;
-    }
-
-    /* ---------------------------------------------- */
-    /* 7. بخش تیم با Modal                    */
-    /* ---------------------------------------------- */
-    .team-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-    }
-    .team-card {
-        text-align: center;
-        cursor: pointer;
-    }
-    .team-photo-wrapper {
-        position: relative;
-        width: 150px;
-        height: 150px;
-        margin: 0 auto 20px;
-    }
-    .team-photo-wrapper::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
+    .testimonial-author img {
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
-        border: 2px solid var(--c-accent);
-        top: 0;
-        left: 0;
-        transition: var(--transition);
-        transform: scale(1.1);
-        opacity: 0;
+        margin: 0 auto 1rem;
     }
-    .team-card:hover .team-photo-wrapper::after {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    .team-photo {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        filter: grayscale(100%) contrast(1.2);
-        transition: var(--transition);
-    }
-    .team-card:hover .team-photo {
-        filter: none;
-    }
-    .team-card h3 {
-        color: var(--c-lightest-slate);
+    .testimonial-author .name {
         font-weight: 700;
     }
-    .team-card p {
-        color: var(--c-accent);
-        font-family: var(--font-mono);
-        font-size: var(--fz-xs);
+    .testimonial-author .title {
+        color: var(--c-text-light);
     }
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(2,12,27,0.8);
-        backdrop-filter: blur(5px);
-        z-index: 999;
+
+
+    .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .skill-card {
+        background: var(--c-white);
+        padding: 20px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-soft);
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 15px;
+        transition: var(--transition);
     }
-    .modal-content {
-        background-color: var(--c-light-navy);
-        padding: 40px;
-        border-radius: var(--radius);
-        max-width: 600px;
-        width: 90%;
-        position: relative;
-        text-align: right;
+    .skill-card:hover {
+        transform: translateY(-5px);
+        color: var(--c-primary);
     }
-    .modal-close {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        background: none;
-        border: none;
-        color: var(--c-lightest-slate);
-        font-size: 2rem;
-        cursor: pointer;
+    .skill-card img {
+        width: 40px;
+        height: 40px;
     }
-    .modal-body h3 {
-        color: var(--c-accent);
-        font-size: var(--fz-lg);
-    }
-    .modal-body p {
-        color: var(--c-light-slate);
-        line-height: 1.6;
+    .skill-card span {
+        font-size: 1.1rem;
+        font-weight: 600;
     }
 
-    /* ---------------------------------------------- */
-    /* 8. انیمیشن‌های ورود با Alpine.js      */
-    /* ---------------------------------------------- */
-    .fade-up {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s var(--transition), transform 0.5s var(--transition);
-    }
-    .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
 
-    /* ---------------------------------------------- */
-    /* 9. واکنش‌گرایی (Responsive)          */
-    /* ---------------------------------------------- */
-    @media (max-width: 1080px) {
-        .projects-grid { grid-template-columns: repeat(2, 1fr); }
-        .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .fade-in { opacity: 0; transition: opacity 1s ease-out; }
+    .fade-in.visible { opacity: 1; }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 992px) {
+        .services-tabs-wrapper { grid-template-columns: 1fr; }
+        .service-tabs { flex-direction: row; overflow-x: auto; }
+        .projects-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-        :root {
-            --fz-xxl: 40px;
-            --fz-xl: 30px;
-            --section-padding: 100px 0;
-        }
-        .section-header::after { display: none; }
+        .hero h1 { font-size: 3rem; }
         .projects-grid { grid-template-columns: 1fr; }
-        .timeline::after { right: 31px; }
-        .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-        .timeline-item:nth-child(odd) { right: auto; left: 0; text-align: right; padding-right: 80px; }
-        .timeline-item:nth-child(even) { left: 0; text-align: right; padding-right: 80px; }
-        .timeline-item:nth-child(odd) .timeline-dot,
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: 21px;
-        }
     }
-
 </style>
 
-<!-- =================================================================================== -->
-<!-- =======================  ساختار HTML صفحه با Alpine.js  ======================== -->
-<!-- =================================================================================== -->
+
 <div class="page-wrapper" x-data>
 
-    <!-- ===== 1. بخش Hero ===== -->
     <section class="hero">
-        <div id="particles-js"></div>
+        <div class="container fade-in visible">
+            <h1>خلاقیت در کد، زیبایی در طراحی</h1>
+            <p>ما مرزهای بین طراحی و تکنولوژی را جابجا می‌کنیم تا محصولاتی خلق کنیم که نه تنها زیبا، بلکه هوشمند و کارآمد هستند.</p>
+            <a href="{% url 'portfolio:project-list' %}" class="btn btn-primary">کاوش در پروژه‌ها</a>
+        </div>
+    </section>
+
+    <section class="section" id="services" x-data="{ activeTab: 1 }">
         <div class="container">
-            <div class="hero-content">
-                <div x-data="{ loaded: false }" x-init="setTimeout(() => { loaded = true }, 100)">
-                    <h1 class="fade-up" :class="{ 'visible': loaded }" style="transition-delay: 100ms;">سلام، ما هستیم</h1>
-                    <h2 class="fade-up" :class="{ 'visible': loaded }" style="transition-delay: 200ms;">خالقان تجربه‌های دیجیتال.</h2>
-                    <h3 class="fade-up" :class="{ 'visible': loaded }" style="transition-delay: 300ms;">ایده‌ها را به واقعیت تبدیل می‌کنیم.</h3>
-                    <p class="fade-up" :class="{ 'visible': loaded }" style="transition-delay: 400ms;">ما یک استودیو طراحی و توسعه نرم‌افزار مستقر در ایران هستیم که در ساخت وب‌سایت‌ها، اپلیکیشن‌ها و تجربیات دیجیتال استثنایی تخصص داریم.</p>
-                    <div class="fade-up" :class="{ 'visible': loaded }" style="transition-delay: 500ms;">
-                        <a href="{% url 'core:contact' %}" class="btn">با ما در ارتباط باشید!</a>
+            <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
+                <h2>راهکارهای جامع ما</h2>
+                <p>از استراتژی تا اجرا، ما در هر مرحله از مسیر دیجیتال شما، با ارائه خدمات تخصصی در کنارتان هستیم.</p>
+            </div>
+            <div class="services-tabs-wrapper">
+                <div class="service-tabs">
+                    {% for service in services %}
+                    <button class="service-tab-button fade-up" x-intersect.once="$el.classList.add('visible')" :class="{ 'active': activeTab === {{ forloop.counter }} }" @click="activeTab = {{ forloop.counter }}" style="transition-delay: {{ forloop.counter0|mult:100 }}ms;">
+                        <img src="{{ service.icon.url }}" alt="" style="width: 24px; height: 24px;">
+                        <span>{{ service.name }}</span>
+                    </button>
+                    {% endfor %}
+                </div>
+                <div class="service-content">
+                    {% for service in services %}
+                    <div class="service-tab-content" x-show="activeTab === {{ forloop.counter }}" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
+                        <div>
+                            <h3>{{ service.name }}</h3>
+                            <p>{{ service.description }}</p>
+                        </div>
+                        <img src="{% if forloop.counter == 1 and featured_projects.0.image %}{{ featured_projects.0.image.url }}{% elif forloop.counter == 2 and featured_projects.1.image %}{{ featured_projects.1.image.url }}{% else %}{% static 'placeholder.jpg' %}{% endif %}" alt="{{ service.name }}">
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 2. بخش خدمات ===== -->
-    <section class="section" id="services">
+    <section class="section section--light-bg" id="projects">
         <div class="container">
-            <div class="section-header" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                <span class="section-counter">01.</span><h2>خدمات ما</h2>
+            <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
+                <h2>گالری نوآوری</h2>
+                <p>ما به هر پیکسل و هر خط کدی که می‌نویسیم افتخار می‌کنیم. در اینجا منتخبی از بهترین کارهای ما را ببینید.</p>
             </div>
-            <div class="services-grid">
-                {% for service in services %}
-                <div class="service-card" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up" style="transition-delay: {{ forloop.counter0|mult:100 }}ms;">
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            <div class="projects-grid" x-data="{
+                handleMouseMove(e, el) {
+                    const { left, top, width, height } = el.getBoundingClientRect();
+                    const x = (e.clientX - left) / width;
+                    const y = (e.clientY - top) / height;
+                    const rotateX = (y - 0.5) * -30;
+                    const rotateY = (x - 0.5) * 30;
+                    el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                },
+                handleMouseLeave(el) {
+                    el.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+                }
+            }">
+                {% for project in featured_projects|slice:":3" %}
+                <a href="{% url 'portfolio:project-detail' slug=project.slug %}" class="project-card fade-up" x-intersect.once="$el.classList.add('visible')" @mousemove="handleMouseMove($event, $el)" @mouseleave="handleMouseLeave($el)" style="transition-delay: {{ forloop.counter0|mult:100 }}ms; text-decoration:none;">
+                    <div class="project-card-image"><img src="{{ project.image.url }}" alt="{{ project.title }}"></div>
+                    <div class="project-card-content">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description|truncatechars:80 }}</p>
                     </div>
-                    <h3>{{ service.name }}</h3>
-                    <p>{{ service.description|truncatechars:120 }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 4. بخش نظرات مشتریان ===== -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
+                <h2>صدای مشتریان ما</h2>
+            </div>
+            <div class="testimonial-slider" x-data="{
+                activeSlide: 1,
+                totalSlides: {{ testimonials|length }},
+                autoplay() {
+                    setInterval(() => {
+                        this.activeSlide = this.activeSlide === this.totalSlides ? 1 : this.activeSlide + 1;
+                    }, 5000);
+                }
+            }" x-init="autoplay()">
+                {% for t in testimonials %}
+                <div class="testimonial-slide" x-show="activeSlide === {{ forloop.counter }}" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+                    <p class="testimonial-quote">"{{ t.quote }}"</p>
+                    <div class="testimonial-author">
+                        <div class="name">{{ t.client_name }}</div>
+                        <div class="title">{{ t.client_title }}</div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- ===== 3. بخش فرایند کاری ===== -->
-    <section class="section section--light-bg" id="process">
-        <div class="container">
-            <div class="section-header" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                <span class="section-counter">02.</span><h2>فرایند کاری ما</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>مرحله اول: کشف و استراتژی</h3>
-                        <p>ما با جلسات عمیق، اهداف شما را درک کرده و یک نقشه راه استراتژیک برای موفقیت پروژه تدوین می‌کنیم.</p>
-                    </div>
-                </div>
-                <div class="timeline-item" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>مرحله دوم: طراحی UI/UX</h3>
-                        <p>طراحان ما با خلق وایرفریم‌ها و پروتوتایپ‌های تعاملی، یک تجربه کاربری بی‌نقص و جذاب را طراحی می‌کنند.</p>
-                    </div>
-                </div>
-                <div class="timeline-item" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>مرحله سوم: توسعه و پیاده‌سازی</h3>
-                        <p>توسعه‌دهندگان ما با استفاده از آخرین تکنولوژی‌ها، طرح‌ها را به یک محصول کاملاً کاربردی و بهینه تبدیل می‌کنند.</p>
-                    </div>
-                </div>
-                <div class="timeline-item" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>مرحله چهارم: تست و راه‌اندازی</h3>
-                        <p>ما محصول را به طور کامل تست کرده و پس از اطمینان از عملکرد بی‌نقص، آن را با موفقیت راه‌اندازی می‌کنیم.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 4. بخش پروژه‌ها ===== -->
-    <section class="section" id="projects" x-data="{
-        activeFilter: 'all',
-        projects: [
-            {% for project in featured_projects %}
-            {
-                id: {{ project.id }},
-                title: '{{ project.title|escapejs }}',
-                slug: '{{ project.slug }}',
-                imageUrl: '{{ project.image.url }}',
-                services: [{% for service in project.services.all %}'{{ service.name|escapejs }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
-            }{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ],
-        get uniqueServices() {
-            const services = new Set();
-            this.projects.forEach(p => p.services.forEach(s => services.add(s)));
-            return ['all', ...services];
-        }
-    }">
-        <div class="container">
-            <div class="section-header" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                <span class="section-counter">03.</span><h2>کارهایی که ساخته‌ایم</h2>
-            </div>
-            <div class="project-filters" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                <template x-for="service in uniqueServices" :key="service">
-                    <button @click="activeFilter = service" :class="{ 'active': activeFilter === service }" x-text="service === 'all' ? 'همه' : service"></button>
-                </template>
-            </div>
-            <div class="projects-grid">
-                <template x-for="project in projects" :key="project.id">
-                    <div class="project-card-wrapper"
-                         :class="{'hidden': activeFilter !== 'all' && !project.services.includes(activeFilter) }"
-                         x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                        <a :href="'/projects/' + project.slug" class="project-card">
-                            <div class="project-image">
-                                <img :src="project.imageUrl" :alt="project.title">
-                            </div>
-                            <div class="project-overlay">
-                                <h3><span x-text="project.title"></span></h3>
-                                <a :href="'/projects/' + project.slug">مشاهده پروژه</a>
-                            </div>
-                        </a>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 5. بخش تیم ===== -->
-    <section class="section section--light-bg" id="team" x-data="{
-        showModal: false,
-        selectedMember: null,
-        openModal(member) {
-            this.selectedMember = member;
-            this.showModal = true;
-        },
-        team: [
-            {% for member in team_members %}
-            {
-                id: {{ member.id }},
-                name: '{{ member.name|escapejs }}',
-                title: '{{ member.title|escapejs }}',
-                photoUrl: '{{ member.photo.url }}',
-                bio: '{{ member.bio|escapejs|linebreaksbr }}'
-            }{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ]
-    }">
-        <div class="container">
-            <div class="section-header" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up">
-                <span class="section-counter">04.</span><h2>تیم ما</h2>
-            </div>
-            <div class="team-grid">
-                <template x-for="member in team" :key="member.id">
-                    <div @click="openModal(member)" class="team-card" x-data="{}" x-intersect.once="$el.classList.add('visible')" class="fade-up" style="transition-delay: {{ forloop.counter0|mult:100 }}ms;">
-                        <div class="team-photo-wrapper">
-                            <img :src="member.photoUrl" :alt="member.name" class="team-photo">
-                        </div>
-                        <h3 x-text="member.name"></h3>
-                        <p x-text="member.title"></p>
-                    </div>
-                </template>
-            </div>
-        </div>
-        <!-- Modal -->
-        <div x-show="showModal" @keydown.escape.window="showModal = false" class="modal-overlay" x-transition>
-            <div @click.away="showModal = false" class="modal-content" x-show="showModal" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100">
-                <button @click="showModal = false" class="modal-close">&times;</button>
-                <div class="modal-body" x-if="selectedMember">
-                    <h3 x-text="selectedMember.name"></h3>
-                    <p x-html="selectedMember.bio"></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
 </div>
-
-<!-- کتابخانه برای افکت ذرات متحرک -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    particlesJS('particles-js', {
-        "particles": {
-            "number": {"value": 60, "density": {"enable": true, "value_area": 800}},
-            "color": {"value": "#64ffda"},
-            "shape": {"type": "circle"},
-            "opacity": {"value": 0.5, "random": true},
-            "size": {"value": 3, "random": true},
-            "line_linked": {"enable": true, "distance": 150, "color": "#8892b0", "opacity": 0.2, "width": 1},
-            "move": {"enable": true, "speed": 1, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false}
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {"onhover": {"enable": true, "mode": "grab"}, "onclick": {"enable": true, "mode": "push"}, "resize": true},
-            "modes": {"grab": {"distance": 140, "line_linked": {"opacity": 0.5}}, "push": {"particles_nb": 4}}
-        },
-        "retina_detect": true
-    });
-});
-</script>
 
 {% endblock %}
