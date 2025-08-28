@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './templates/**/*.html',
-    './apps/**/*.py',
+    './templates/**/*.{html,js}',
+    './apps/**/*.{html,js,py}',
+    './static/src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -14,7 +15,7 @@ module.exports = {
         'neon-teal': '#64ffda',
       },
       fontFamily: {
-        'sans': ['Manrope', 'sans-serif'],
+        'sans': ['Vazirmatn', 'sans-serif'],
         'serif': ['Playfair Display', 'serif'],
         'mono': ['Fira Code', 'monospace'],
       },
