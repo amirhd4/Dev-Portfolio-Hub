@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}پورتفولیو{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Manrope:wght@400;500&family=Fira+Code&display=swap" rel="stylesheet">
     <link href="{% static 'dist/css/output.css' %}" rel="stylesheet">
 </head>
 
@@ -19,7 +22,11 @@
 
     {% include 'components/_footer.html' %}
 
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    {% block extra_scripts %}{% endblock %}
+
 </body>
 </html>

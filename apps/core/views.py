@@ -2,10 +2,28 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import ContactForm
+from apps.portfolio.models import Project, Service, Technology, Testimonial
+from apps.team.models import TeamMember
+
+
+from django.shortcuts import render
+from apps.portfolio.models import Project, Testimonial
 
 def home(request):
-    return render(request, 'home.html')
+    featured_projects = Project.objects.all()[:6]            # 6 پروژه اخیر
+    services = Service.objects.all()                         # همه سرویس‌ها
+    technologies = Technology.objects.all()[:12]             # تا 12 تکنولوژی برای نمایش
+    testimonials = Testimonial.objects.select_related('project').all()[:3]  # 3 نظر آخر
+    team_members = TeamMember.objects.all()[:4]              # تا 4 عضو تیم
 
+    context = {
+        'featured_projects': featured_projects,
+        'services': services,
+        'technologies': technologies,
+        'testimonials': testimonials,
+        'team_members': team_members,
+    }
+    return render(request, 'home.html', context)
 
 def contact_view(request):
     if request.method == 'POST':
