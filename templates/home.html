@@ -2,36 +2,44 @@
 {% load custom_filters %}
 {% load static %}
 
-{% block title %}خانه | استودیو نوآوری دیجیتال - خلق آینده{% endblock %}
+{% block title %}خانه | استودیو خلاقیت و نوآوری دیجیتال{% endblock %}
 
 {% block content %}
 
+<!-- =================================================================================== -->
+<!-- =======================  CSS سفارشی برای طراحی نهایی  ========================= -->
+<!-- =================================================================================== -->
 <style>
+    /* ---------------------------------------------- */
+    /* 1. متغیرها و تنظیمات کلی (Root)        */
+    /* ---------------------------------------------- */
     :root {
-        --c-primary: #007BFF;      /* آبی کلاسیک */
-        --c-primary-dark: #0056b3;
-        --c-secondary: #17a2b8;    /* فیروزه‌ای */
-        --c-dark: #343a40;
-        --c-text: #495057;
-        --c-text-light: #6c757d;
+        --c-primary: #5E5DF0;      /* آبی-بنفش جذاب */
+        --c-primary-dark: #4341d4;
+        --c-secondary: #00D1B2;    /* فیروزه‌ای زنده */
+        --c-dark: #24292e;         /* مشکی نرم */
+        --c-text: #3d4449;
+        --c-text-light: #6a737d;
         --c-bg: #ffffff;
-        --c-light-bg: #f8f9fa;
-        --c-border: #dee2e6;
-        --c-success: #28a745;
-        --c-error: #dc3545;
+        --c-light-bg: #f6f8fa;
+        --c-border: #e1e4e8;
+        --c-white: #ffffff;
 
-        --shadow-soft: 0 4px 15px rgba(0,0,0,0.06);
+        --shadow-soft: 0 5px 15px rgba(0,0,0,0.05);
         --shadow-medium: 0 8px 30px rgba(0,0,0,0.1);
-        --radius: 12px;
-        --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        --radius: 16px;
+        --transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-
+    /* ---------------------------------------------- */
+    /* 2. استایل‌های پایه و عمومی             */
+    /* ---------------------------------------------- */
     .page-wrapper {
         font-family: 'Vazirmatn', sans-serif;
         background-color: var(--c-bg);
         color: var(--c-text);
-        line-height: 1.8;
+        line-height: 1.7;
+        overflow-x: hidden;
     }
     .container {
         max-width: 1140px;
@@ -41,153 +49,146 @@
     .section {
         padding: 120px 0;
         position: relative;
-        overflow: hidden;
     }
     .section-header {
         text-align: center;
         margin-bottom: 70px;
     }
+    .section-header .tagline {
+        color: var(--c-primary);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: block;
+    }
     .section-header h2 {
         font-size: 3rem;
         font-weight: 800;
         color: var(--c-dark);
-        margin-bottom: 1rem;
-    }
-    .section-header p {
-        font-size: 1.1rem;
-        color: var(--c-text-light);
-        max-width: 650px;
-        margin: 0 auto;
     }
     .btn {
         display: inline-block;
-        padding: 12px 28px;
+        padding: 14px 32px;
         border-radius: 50px;
-        font-weight: 600;
+        font-weight: 700;
         text-decoration: none;
         transition: var(--transition);
         border: 2px solid transparent;
         font-size: 1rem;
     }
     .btn-primary {
-        background-color: var(--c-primary);
+        background-image: linear-gradient(90deg, var(--c-primary), var(--c-secondary));
+        background-size: 200% auto;
         color: white;
+        box-shadow: var(--shadow-soft);
     }
     .btn-primary:hover {
-        background-color: var(--c-primary-dark);
+        background-position: right center;
         transform: translateY(-3px);
-        box-shadow: var(--shadow-medium);
-    }
-
-
-    header {
-        position: relative;
-        z-index: 1000 !important; /* این خط هدر را همیشه در بالاترین لایه نگه می‌دارد */
-    }
-
-
-    .hero {
-        min-height: 90vh;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        color: white;
-    }
-    @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    .hero h1 {
-        font-size: 4.5rem;
-        font-weight: 900;
-        margin-bottom: 1.5rem;
-    }
-    .hero p {
-        font-size: 1.25rem;
-        max-width: 700px;
-        margin: 0 auto 2.5rem;
-        opacity: 0.9;
-    }
-
-
-    .services-tabs-wrapper {
-        display: grid;
-        grid-template-columns: 300px 1fr;
-        gap: 50px;
-        align-items: flex-start;
-    }
-    .service-tabs {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .service-tab-button {
-        width: 100%;
-        padding: 20px;
-        background: var(--c-white);
-        border: 1px solid var(--c-border);
-        border-radius: var(--radius);
-        text-align: right;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    .service-tab-button.active,
-    .service-tab-button:hover {
-        background-color: var(--c-primary);
-        color: white;
-        border-color: var(--c-primary);
-        transform: translateX(-10px);
-    }
-    .service-tab-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        align-items: center;
-    }
-    .service-tab-content h3 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--c-dark);
-        margin-bottom: 1rem;
-    }
-    .service-tab-content img {
-        width: 100%;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-medium);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
     /* ---------------------------------------------- */
-    /* 6. بخش پروژه‌ها با افکت سه‌بعدی       */
+    /* 3. حل مشکل Z-Index هدر                */
+    /* ---------------------------------------------- */
+    header {
+        position: relative;
+        z-index: 1000 !important;
+    }
+
+    /* ---------------------------------------------- */
+    /* 4. بخش Hero با کره سه‌بعدی             */
+    /* ---------------------------------------------- */
+    .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 40px;
+        padding: 0 20px;
+    }
+    .hero-text h1 {
+        font-size: 4.2rem;
+        font-weight: 900;
+        line-height: 1.2;
+        color: var(--c-dark);
+        margin-bottom: 1.5rem;
+    }
+    .hero-text .highlight {
+        color: var(--c-primary);
+    }
+    .hero-text p {
+        font-size: 1.2rem;
+        color: var(--c-text-light);
+        margin-bottom: 2.5rem;
+        max-width: 500px;
+    }
+    #hero-canvas {
+        width: 100%;
+        height: 100%;
+        min-height: 500px;
+        cursor: grab;
+    }
+
+    /* ---------------------------------------------- */
+    /* 5. بخش ارزش‌های ما (Values)            */
+    /* ---------------------------------------------- */
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    .value-card {
+        background: var(--c-white);
+        padding: 40px;
+        border-radius: var(--radius);
+        text-align: center;
+        border: 1px solid var(--c-border);
+        transition: var(--transition);
+    }
+    .value-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-medium);
+    }
+    .value-card .icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 25px;
+        border-radius: 50%;
+        background-color: var(--c-light-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--c-primary);
+    }
+    .value-card .icon svg {
+        width: 32px;
+        height: 32px;
+    }
+    .value-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--c-dark);
+        margin-bottom: 15px;
+    }
+
+    /* ---------------------------------------------- */
+    /* 6. بخش پروژه‌ها                       */
     /* ---------------------------------------------- */
     .projects-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
-        perspective: 1000px;
     }
     .project-card {
         background: var(--c-white);
         border-radius: var(--radius);
         box-shadow: var(--shadow-soft);
+        overflow: hidden;
         transition: var(--transition);
-        transform-style: preserve-3d;
     }
     .project-card:hover {
+        transform: scale(1.05);
         box-shadow: var(--shadow-medium);
-    }
-    .project-card-image {
-        overflow: hidden;
-        border-top-left-radius: var(--radius);
-        border-top-right-radius: var(--radius);
     }
     .project-card-image img {
         width: 100%;
@@ -201,159 +202,223 @@
         font-size: 1.4rem;
         font-weight: 700;
         color: var(--c-dark);
+        margin-bottom: 10px;
     }
-
-
-    .testimonial-slider {
-        position: relative;
-        max-width: 800px;
-        margin: 0 auto;
-        height: 350px; /* ارتفاع ثابت برای جلوگیری از پرش */
-    }
-    .testimonial-slide {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .testimonial-quote {
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: var(--c-dark);
-        margin-bottom: 2rem;
-    }
-    .testimonial-author img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin: 0 auto 1rem;
-    }
-    .testimonial-author .name {
-        font-weight: 700;
-    }
-    .testimonial-author .title {
-        color: var(--c-text-light);
-    }
-
-
-    .skills-grid {
+    .project-tech-list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        max-width: 900px;
-        margin: 0 auto;
+        gap: 8px;
+        margin-top: 15px;
     }
-    .skill-card {
+    .project-tech-list span {
+        background-color: var(--c-light-bg);
+        color: var(--c-text-light);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    /* ---------------------------------------------- */
+    /* 7. بخش تیم (Team)                      */
+    /* ---------------------------------------------- */
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+    .team-card {
         background: var(--c-white);
-        padding: 20px;
         border-radius: var(--radius);
+        padding: 30px;
+        text-align: center;
         box-shadow: var(--shadow-soft);
-        display: flex;
-        align-items: center;
-        gap: 15px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-medium);
+    }
+    .team-card-bg {
+        position: absolute;
+        top: -100px;
+        right: -80px;
+        width: 200px;
+        height: 200px;
+        background-image: linear-gradient(45deg, var(--c-primary), var(--c-secondary));
+        opacity: 0.1;
+        border-radius: 50%;
         transition: var(--transition);
     }
-    .skill-card:hover {
-        transform: translateY(-5px);
+    .team-card:hover .team-card-bg {
+        transform: scale(1.5);
+    }
+    .team-card-content {
+        position: relative;
+        z-index: 2;
+    }
+    .team-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 20px;
+        border: 5px solid var(--c-white);
+        box-shadow: 0 0 0 5px var(--c-primary);
+    }
+    .team-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--c-dark);
+        margin-bottom: 5px;
+    }
+    .team-title {
         color: var(--c-primary);
+        font-weight: 500;
+        margin-bottom: 15px;
     }
-    .skill-card img {
-        width: 40px;
-        height: 40px;
+    .team-socials {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
     }
-    .skill-card span {
+    .team-socials a {
+        color: var(--c-text-light);
+        transition: var(--transition);
+    }
+    .team-socials a:hover {
+        color: var(--c-primary);
+        transform: scale(1.2);
+    }
+    .team-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(5px);
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .team-modal-content {
+        background: var(--c-white);
+        border-radius: var(--radius);
+        max-width: 600px;
+        width: 90%;
+        padding: 40px;
+    }
+
+    /* ---------------------------------------------- */
+    /* 8. بخش سوالات متداول (FAQ)           */
+    /* ---------------------------------------------- */
+    .faq-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .faq-item {
+        background: var(--c-white);
+        border: 1px solid var(--c-border);
+        border-radius: var(--radius);
+    }
+    .faq-question {
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-size: 1.1rem;
         font-weight: 600;
+        color: var(--c-dark);
+    }
+    .faq-answer {
+        padding: 0 20px 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    }
+    .faq-icon {
+        transition: transform 0.3s ease;
     }
 
-
-    .fade-in { opacity: 0; transition: opacity 1s ease-out; }
-    .fade-in.visible { opacity: 1; }
-    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    /* ---------------------------------------------- */
+    /* 9. انیمیشن‌ها و واکنش‌گرایی          */
+    /* ---------------------------------------------- */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 992px) {
-        .services-tabs-wrapper { grid-template-columns: 1fr; }
-        .service-tabs { flex-direction: row; overflow-x: auto; }
-        .projects-grid { grid-template-columns: 1fr 1fr; }
+        .hero { grid-template-columns: 1fr; text-align: center; }
+        .hero-text p { margin: 0 auto 2.5rem; }
+        #hero-canvas { min-height: 400px; order: -1; }
+        .values-grid, .projects-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-        .hero h1 { font-size: 3rem; }
-        .projects-grid { grid-template-columns: 1fr; }
+        .section { padding: 80px 0; }
+        .hero h1, .section-header h2 { font-size: 2.5rem; }
+        .values-grid, .projects-grid, .team-grid { grid-template-columns: 1fr; }
     }
 </style>
 
-
+<!-- =================================================================================== -->
+<!-- =======================  ساختار HTML صفحه با Alpine.js  ======================== -->
+<!-- =================================================================================== -->
 <div class="page-wrapper" x-data>
 
-    <section class="hero">
-        <div class="container fade-in visible">
-            <h1>خلاقیت در کد، زیبایی در طراحی</h1>
-            <p>ما مرزهای بین طراحی و تکنولوژی را جابجا می‌کنیم تا محصولاتی خلق کنیم که نه تنها زیبا، بلکه هوشمند و کارآمد هستند.</p>
-            <a href="{% url 'portfolio:project-list' %}" class="btn btn-primary">کاوش در پروژه‌ها</a>
+    <!-- ===== 1. بخش Hero ===== -->
+    <section class="hero container">
+        <div class="hero-text">
+            <h1 class="fade-up visible">ما <span class="highlight">آینده دیجیتال</span> را می‌سازیم.</h1>
+            <p class="fade-up visible" style="transition-delay: 100ms;">ما یک تیم خلاق از طراحان، توسعه‌دهندگان و استراتژیست‌ها هستیم که با ترکیب هنر و تکنولوژی، به برندها کمک می‌کنیم تا داستان خود را به بهترین شکل روایت کنند.</p>
+            <a href="#projects" class="btn btn-primary fade-up visible" style="transition-delay: 200ms;">مشاهده آثار ما</a>
         </div>
+        <div id="hero-canvas" class="fade-up visible" style="transition-delay: 300ms;"></div>
     </section>
 
-    <section class="section" id="services" x-data="{ activeTab: 1 }">
+    <!-- ===== 2. بخش ارزش‌های ما ===== -->
+    <section class="section section--light-bg" id="values">
         <div class="container">
             <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
-                <h2>راهکارهای جامع ما</h2>
-                <p>از استراتژی تا اجرا، ما در هر مرحله از مسیر دیجیتال شما، با ارائه خدمات تخصصی در کنارتان هستیم.</p>
+                <span class="tagline">چرا ما؟</span>
+                <h2>اصول و ارزش‌های ما</h2>
             </div>
-            <div class="services-tabs-wrapper">
-                <div class="service-tabs">
-                    {% for service in services %}
-                    <button class="service-tab-button fade-up" x-intersect.once="$el.classList.add('visible')" :class="{ 'active': activeTab === {{ forloop.counter }} }" @click="activeTab = {{ forloop.counter }}" style="transition-delay: {{ forloop.counter0|mult:100 }}ms;">
-                        <img src="{{ service.icon.url }}" alt="" style="width: 24px; height: 24px;">
-                        <span>{{ service.name }}</span>
-                    </button>
-                    {% endfor %}
+            <div class="values-grid">
+                <div class="value-card fade-up" x-intersect.once="$el.classList.add('visible')">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-12v4m-2-2h4m5 4h4m-2-2v4m-5 5v4m-2-2h4" /></svg></div><h3>کیفیت بی‌نظیر</h3><p>ما به جزئیات اهمیت می‌دهیم و محصولی بی‌نقص و با بالاترین استانداردها ارائه می‌کنیم.</p>
                 </div>
-                <div class="service-content">
-                    {% for service in services %}
-                    <div class="service-tab-content" x-show="activeTab === {{ forloop.counter }}" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-x-4" x-transition:enter-end="opacity-100 transform translate-x-0">
-                        <div>
-                            <h3>{{ service.name }}</h3>
-                            <p>{{ service.description }}</p>
-                        </div>
-                        <img src="{% if forloop.counter == 1 and featured_projects.0.image %}{{ featured_projects.0.image.url }}{% elif forloop.counter == 2 and featured_projects.1.image %}{{ featured_projects.1.image.url }}{% else %}{% static 'placeholder.jpg' %}{% endif %}" alt="{{ service.name }}">
-                    </div>
-                    {% endfor %}
+                <div class="value-card fade-up" x-intersect.once="$el.classList.add('visible')" style="transition-delay: 100ms;">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div><h3>تعهد به زمان</h3><p>ما برای زمان شما ارزش قائلیم و پروژه‌ها را دقیقاً طبق برنامه زمان‌بندی شده تحویل می‌دهیم.</p>
+                </div>
+                <div class="value-card fade-up" x-intersect.once="$el.classList.add('visible')" style="transition-delay: 200ms;">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div><h3>نوآوری مداوم</h3><p>ما همیشه در حال یادگیری و استفاده از جدیدترین تکنولوژی‌ها برای ارائه بهترین راه‌حل‌ها هستیم.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section section--light-bg" id="projects">
+    <!-- ===== 3. بخش پروژه‌ها ===== -->
+    <section class="section" id="projects">
         <div class="container">
             <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
-                <h2>گالری نوآوری</h2>
-                <p>ما به هر پیکسل و هر خط کدی که می‌نویسیم افتخار می‌کنیم. در اینجا منتخبی از بهترین کارهای ما را ببینید.</p>
+                <span class="tagline">گالری ما</span>
+                <h2>منتخبی از کارهای ما</h2>
             </div>
-            <div class="projects-grid" x-data="{
-                handleMouseMove(e, el) {
-                    const { left, top, width, height } = el.getBoundingClientRect();
-                    const x = (e.clientX - left) / width;
-                    const y = (e.clientY - top) / height;
-                    const rotateX = (y - 0.5) * -30;
-                    const rotateY = (x - 0.5) * 30;
-                    el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-                },
-                handleMouseLeave(el) {
-                    el.style.transform = 'rotateX(0) rotateY(0) scale(1)';
-                }
-            }">
-                {% for project in featured_projects|slice:":3" %}
-                <a href="{% url 'portfolio:project-detail' slug=project.slug %}" class="project-card fade-up" x-intersect.once="$el.classList.add('visible')" @mousemove="handleMouseMove($event, $el)" @mouseleave="handleMouseLeave($el)" style="transition-delay: {{ forloop.counter0|mult:100 }}ms; text-decoration:none;">
+            <div class="projects-grid">
+                {% for project in featured_projects|slice:":6" %}
+                <a href="{% url 'portfolio:project-detail' slug=project.slug %}" class="project-card fade-up" x-intersect.once="$el.classList.add('visible')" style="transition-delay: {{ forloop.counter0|mult:100 }}ms; text-decoration:none; color:inherit;">
                     <div class="project-card-image"><img src="{{ project.image.url }}" alt="{{ project.title }}"></div>
                     <div class="project-card-content">
                         <h3>{{ project.title }}</h3>
                         <p>{{ project.description|truncatechars:80 }}</p>
+                        <div class="project-tech-list">
+                            {% for tech in project.technologies.all|slice:":3" %}
+                                <span>{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
                 </a>
                 {% endfor %}
@@ -361,34 +426,183 @@
         </div>
     </section>
 
-    <!-- ===== 4. بخش نظرات مشتریان ===== -->
-    <section class="section" id="testimonials">
+    <!-- ===== 4. بخش تیم ===== -->
+    <section class="section section--light-bg" id="team" x-data="{
+        showModal: false,
+        selectedMember: null,
+        openModal(member) {
+            this.selectedMember = member;
+            this.showModal = true;
+        },
+        team: [
+            {% for member in team_members %}
+            {
+                id: {{ member.id }},
+                name: '{{ member.name|escapejs }}',
+                title: '{{ member.title|escapejs }}',
+                photoUrl: '{{ member.photo.url }}',
+                bio: '{{ member.bio|escapejs|linebreaksbr }}',
+                linkedin: '{{ member.linkedin_url|default:"" }}',
+                github: '{{ member.github_url|default:"" }}'
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }">
         <div class="container">
             <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
-                <h2>صدای مشتریان ما</h2>
+                <span class="tagline">نیروی محرکه ما</span>
+                <h2>آشنایی با تیم متخصص ما</h2>
             </div>
-            <div class="testimonial-slider" x-data="{
-                activeSlide: 1,
-                totalSlides: {{ testimonials|length }},
-                autoplay() {
-                    setInterval(() => {
-                        this.activeSlide = this.activeSlide === this.totalSlides ? 1 : this.activeSlide + 1;
-                    }, 5000);
-                }
-            }" x-init="autoplay()">
-                {% for t in testimonials %}
-                <div class="testimonial-slide" x-show="activeSlide === {{ forloop.counter }}" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-                    <p class="testimonial-quote">"{{ t.quote }}"</p>
-                    <div class="testimonial-author">
-                        <div class="name">{{ t.client_name }}</div>
-                        <div class="title">{{ t.client_title }}</div>
+            <div class="team-grid">
+                <template x-for="member in team" :key="member.id">
+                    <div @click="openModal(member)" class="team-card fade-up" x-intersect.once="$el.classList.add('visible')" style="cursor: pointer;">
+                        <div class="team-card-bg"></div>
+                        <div class="team-card-content">
+                            <img :src="member.photoUrl" :alt="member.name" class="team-photo">
+                            <h3 class="team-name" x-text="member.name"></h3>
+                            <p class="team-title" x-text="member.title"></p>
+                            <div class="team-socials">
+                                <a x-if="member.linkedin" :href="member.linkedin" target="_blank" @click.stop><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.2h.1c.7-1.3 2.4-2.7 4.9-2.7 5.2 0 6.1 3.4 6.1 7.8V24h-5v-7.3c0-1.7 0-3.9-2.4-3.9-2.4 0-2.8 1.9-2.8 3.8V24h-5V8z"/></svg></a>
+                                <a x-if="member.github" :href="member.github" target="_blank" @click.stop><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.9 3.16 9.06 7.56 10.53.55.1.75-.24.75-.53 0-.26-.01-1.12-.02-2.03-3.08.67-3.73-1.48-3.73-1.48-.5-1.27-1.22-1.61-1.22-1.61-.99-.68.08-.66.08-.66 1.09.08 1.66 1.12 1.66 1.12.97 1.66 2.55 1.18 3.18.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.47 0-1.21.43-2.2 1.13-2.98-.11-.28-.49-1.41.11-2.94 0 0 .92-.29 3.02 1.13a10.5 10.5 0 0 1 5.5 0c2.1-1.42 3.02-1.13 3.02-1.13.6 1.53.22 2.66.11 2.94.7.78 1.13 1.77 1.13 2.98 0 4.25-2.6 5.19-5.07 5.46.39.34.74 1.01.74 2.04 0 1.47-.01 2.65-.01 3.01 0 .29.19.64.76.53 4.4-1.47 7.56-5.63 7.56-10.53C23.25 5.48 18.27.5 12 .5z"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div x-show="showModal" x-transition class="team-modal-overlay" @keydown.escape.window="showModal = false" x-cloak>
+            <div @click.away="showModal = false" class="team-modal-content" x-show="showModal" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+                <template x-if="selectedMember">
+                    <div>
+                        <h3 x-text="selectedMember.name" class="text-2xl font-bold text-dark mb-1"></h3>
+                        <p x-text="selectedMember.title" class="text-primary font-semibold mb-4"></p>
+                        <p x-html="selectedMember.bio" class="text-text-light"></p>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 5. بخش سوالات متداول ===== -->
+    <section class="section" id="faq" x-data="{ activeFaq: 0 }">
+        <div class="container">
+            <div class="section-header fade-up" x-intersect.once="$el.classList.add('visible')">
+                <span class="tagline">پاسخ به سوالات</span>
+                <h2>سوالات متداول</h2>
+            </div>
+            <div class="faq-wrapper">
+                <div class="faq-item fade-up" x-intersect.once="$el.classList.add('visible')">
+                    <div class="faq-question" @click="activeFaq = activeFaq === 1 ? 0 : 1">
+                        <span>فرایند انجام یک پروژه چقدر طول می‌کشد؟</span>
+                        <span class="faq-icon" :style="activeFaq === 1 && { transform: 'rotate(45deg)' }">+</span>
+                    </div>
+                    <div class="faq-answer" :style="activeFaq === 1 && { maxHeight: '1000px', paddingTop: '20px' }">
+                        <p>زمان انجام پروژه به پیچیدگی و وسعت آن بستگی دارد. اما به طور متوسط، یک پروژه وبسایت بین ۴ تا ۸ هفته زمان می‌برد. ما در ابتدای پروژه یک برنامه زمان‌بندی دقیق به شما ارائه خواهیم داد.</p>
                     </div>
                 </div>
-                {% endfor %}
+                <!-- آیتم‌های بیشتر -->
             </div>
         </div>
     </section>
 
 </div>
+
+<!-- کتابخانه‌های لازم برای افکت سه‌بعدی -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('hero-canvas')) {
+        let scene, camera, renderer, sphere, uniforms;
+        let mouse = new THREE.Vector2();
+        const container = document.getElementById('hero-canvas');
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 2.5;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const geometry = new THREE.SphereGeometry(1.2, 64, 64);
+
+            uniforms = {
+                time: { value: 1.0 },
+                colorA: { value: new THREE.Color(0x5E5DF0) },
+                colorB: { value: new THREE.Color(0x00D1B2) }
+            };
+
+            const material = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: `
+                    varying vec2 vUv;
+                    void main() {
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform float time;
+                    uniform vec3 colorA;
+                    uniform vec3 colorB;
+                    varying vec2 vUv;
+
+                    float noise(vec2 st) {
+                        return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+                    }
+
+                    void main() {
+                        vec2 st = vUv * 5.0 - vec2(2.5);
+                        st.x *= 1.0 + sin(time * 0.1) * 0.1;
+                        st.y *= 1.0 + cos(time * 0.1) * 0.1;
+
+                        float n = noise(st + time * 0.1);
+
+                        vec3 color = mix(colorA, colorB, vUv.y + n * 0.3);
+                        gl_FragColor = vec4(color, 1.0);
+                    }
+                `
+            });
+
+            sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+
+            window.addEventListener('resize', onWindowResize, false);
+            container.addEventListener('mousemove', onMouseMove, false);
+        }
+
+        function onWindowResize() {
+            if (container) {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
+        }
+
+        function onMouseMove(event) {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            uniforms.time.value += 0.02;
+
+            sphere.rotation.y += 0.0005;
+            camera.position.x += (mouse.x * 0.5 - camera.position.x) * 0.05;
+            camera.position.y += (mouse.y * 0.5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+    }
+});
+</script>
 
 {% endblock %}

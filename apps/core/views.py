@@ -10,11 +10,11 @@ from django.shortcuts import render
 from apps.portfolio.models import Project, Testimonial
 
 def home(request):
-    featured_projects = Project.objects.all()[:6]            # 6 پروژه اخیر
-    services = Service.objects.all()                         # همه سرویس‌ها
-    technologies = Technology.objects.all()[:12]             # تا 12 تکنولوژی برای نمایش
-    testimonials = Testimonial.objects.select_related('project').all()[:3]  # 3 نظر آخر
-    team_members = TeamMember.objects.all()[:4]              # تا 4 عضو تیم
+    featured_projects = Project.objects.all()[:6]
+    services = Service.objects.all()
+    technologies = Technology.objects.all()[:12]
+    testimonials = Testimonial.objects.select_related('project').all()[:3]
+    team_members = TeamMember.objects.prefetch_related('skills').all()[:6]
 
     context = {
         'featured_projects': featured_projects,
