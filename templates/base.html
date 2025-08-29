@@ -4,9 +4,37 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}پورتفولیو{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}استودیو خلاقیت و نوآوری دیجیتال{% endblock %}</title>
+    <meta name="description" content="{% block description %}ما یک استودیو خلاق برای طراحی و توسعه راهکارهای دیجیتال، هوش مصنوعی و اتوماسیون هستیم.{% endblock %}">
+    <meta name="keywords" content="برنامه نویسی, جنگو, پایتون, پورتفولیو, توسعه وب, هوش مصنوعی, FastAPI">
+    <meta name="author" content="امیرحسین دهقانی و خسرو زنگنه">
+
+    <meta property="og:title" content="{% block og_title %}{{ block.super }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ block.super }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% static 'img/social_share_card.png' %}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ block.super }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ block.super }}{% endblock %}">
+    <meta name="twitter:image" content="{% static 'img/social_share_card.png' %}">
+
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#5E5DF0">
+
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="any">
+    <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="{% static 'dist/css/output.css' %}" rel="stylesheet">
 </head>
+
 
 <body class="bg-gray-100 font-sans">
 
@@ -21,6 +49,7 @@
 
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     {% block extra_scripts %}{% endblock %}
