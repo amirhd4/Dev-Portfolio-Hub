@@ -148,3 +148,20 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Email Backend Configuration for Development
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+MARKDOWNIFY = {
+    "default": {
+        "WHITELIST_TAGS": [
+            "a", "abbr", "acronym", "b", "blockquote", "code", "em", "i", "li",
+            "ol", "strong", "ul", "h1", "h2", "h3", "h4", "h5", "h6", "p",
+            "pre", "img"
+        ],
+        "WHITELIST_ATTRS": ["href", "src", "alt", "title"],
+        "MARKDOWN_EXTENSIONS": [
+            "markdown.extensions.extra",
+            "markdown.extensions.codehilite",
+            "markdown.extensions.toc",
+        ]
+    }
+}
