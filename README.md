@@ -29,6 +29,6 @@ We are a passionate software development team offering:
 ## 🛠️ Setup Instructions
 
 ```bash
-git clone https://github.com/yourusername/devportfoliohub.git
+git clone https://github.com/amirhd4/Dev-Portfolio-Hub.git
 cd devportfoliohub
-docker-compose up --build
+docker compose up --build
