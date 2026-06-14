@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from .views import project_list, project_detail
 
-app_name = 'portfolio' # تعریف یک نام برای این مجموعه از URLها
+app_name = 'portfolio'
 
 urlpatterns = [
     path('projects/', project_list, name='project-list'),

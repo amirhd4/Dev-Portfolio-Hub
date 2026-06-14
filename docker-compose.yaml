@@ -2,11 +2,8 @@ services:
   django_app:
     build: .
     volumes:
-      # برای live-reload کد در محیط توسعه
       - .:/app
-      # اتصال ولوم استاتیک به این سرویس
       - static_volume:/app/staticfiles
-      # اتصال ولوم مدیا به این سرویس
       - media_volume:/app/media
     depends_on:
       - summarizer_app
@@ -24,15 +21,12 @@ services:
       - "8087:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      # اتصال ولوم استاتیک (فقط خواندنی) به Nginx
       - static_volume:/app/staticfiles:ro
-      # اتصال ولوم مدیا (فقط خواندنی) به Nginx
       - media_volume:/app/media:ro
     depends_on:
       - django_app
       - summarizer_app
 
-# تعریف ولوم‌های نام‌گذاری شده برای اشتراک‌گذاری داده‌ها بین کانتینرها
 volumes:
   pip-cache:
   huggingface-cache:

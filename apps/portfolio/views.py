@@ -2,10 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Project
 
 def project_list(request):
-    # خواندن تمام پروژه‌ها از پایگاه داده و مرتب‌سازی بر اساس آخرین موارد اضافه شده
     projects = Project.objects.all().order_by('-id')
 
-    # ارسال لیست پروژه‌ها به قالب
     context = {
         'projects': projects
     }
